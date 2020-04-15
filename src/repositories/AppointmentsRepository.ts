@@ -1,14 +1,18 @@
 import { isEqual } from 'date-fns';
-import Appointement from '../models/Appointment';
+import Appointment from '../models/Appointment';
 
 class AppointmentsRepository {
-  private appointments: Appointement[];
+  private appointments: Appointment[];
 
   constructor() {
     this.appointments = [];
   }
 
-  public findByDate(date: Date): Appointement | null {
+  public all(): Appointment[] {
+    return this.appointments;
+  }
+
+  public findByDate(date: Date): Appointment | null {
     const findAppointment = this.appointments.find(appointment =>
       isEqual(date, appointment.date),
     );
@@ -16,12 +20,12 @@ class AppointmentsRepository {
     return findAppointment || null;
   }
 
-  public create(provider: string, date: Date): Appointement {
-    const appointement = new Appointement(provider, date);
+  public create(provider: string, date: Date): Appointment {
+    const appointment = new Appointment(provider, date);
 
-    this.appointments.push(appointement);
+    this.appointments.push(appointment);
 
-    return appointement;
+    return appointment;
   }
 }
 
